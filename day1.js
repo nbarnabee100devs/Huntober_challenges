@@ -20,26 +20,6 @@ let test = "PR0-T1P #hqB: 1T'5 N1C3 T0 5AY H3770.";
 "PRO-TIP #498: IT'S NICE TO SAY HELLO."
 */
 
-function decodeStringOld(str) {
-  let newStr;
-  for (let i = 0; i < str.length; i++) {
-    console.log(str[i]);
-    if (decoderArrayLetters.includes(str[i])) {
-      console.log("yes");
-      newStr = str.replace(str[i], String(decoderArrayLetters.indexOf(str[i])));
-    }
-    if (decoderArrayNumbers.includes(str[i])) {
-      newStr = str.replace(str[i], decoderArrayLetters[i]);
-    }
-  }
-  console.log(newStr);
-  return newStr;
-}
-
-// man this is not working at all; what am I doing wrong?
-// oh it's because .replace doesn't actually modify the original string
-// screw it I should just use array stuff
-
 function decodeString(str) {
   let decodedStr = "";
   for (let character of str) {
