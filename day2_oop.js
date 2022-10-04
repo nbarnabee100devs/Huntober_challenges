@@ -10,7 +10,7 @@ const day2 = {
     this.result = str.slice(str.indexOf("c")).replace(eek, "");
     return this;
   },
-  reverse: function () {
+  reverseIt: function () {
     this.result = this.result.split("").reverse().join("");
     return this;
   },
@@ -25,6 +25,6 @@ const day2 = {
   },
 };
 
-day2.deCatify(str).reverse().splitIt().collectCharacters();
+day2.deCatify(str).reverseIt().splitIt().collectCharacters();
 
 // Holy crap it actually worked
