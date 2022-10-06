@@ -84,7 +84,7 @@ let test5 = ["were", "weren", "where", "whher", "whhEr"];
 // 6. Must have an even number of lowercase letters.  This is another job for regex.
 // !pun.match(/[a-z]/g).length%2
 
-function lowerEven(arr) {
+function lowerEvenFail(arr) {
   return arr.filter((pun) => !pun.match(/[a-z]/g).length % 2);
 }
 
@@ -95,7 +95,7 @@ let test6 = ["bob", "jane", "Bob", "Jane"];
 // 7. Must have at least 2 capital letters.  Another job for regex.
 // pun.match(/[A-Z]/g).length >= 2
 
-function twoCapitals(arr) {
+function twoCapitalsFail(arr) {
   return arr.filter((pun) => pun.match(/[A-Z]/g).length >= 2);
 }
 
@@ -121,24 +121,30 @@ let test8 = ["sally", "Sally", "dogs", "dogS"];
 
 /* ----  TRY AGAIN ------ */
 
-// 6. Must have an even number of lowercase letters.  This is another job for regex.
-// !pun.match(/[a-z]/g).length%2
+// 6. Must have an even number of lowercase letters.
 
 function lowerEven(arr) {
-  return arr.filter((pun) => !pun.match(/[a-z]/g).length % 2);
+  return arr.filter((pun) => !(pun.match(/[a-z]/g).length % 2));
 }
 
-let test6 = ["bob", "jane", "Bob", "Jane"];
+//let test6 = ["bob", "jane", "Bob", "Jane"];
 
-// would expect "jane" and "Bob" to pass  but this FAILED
+// Tried to see if chaining .match and .length did in fact produce what I wanted, and it did.
+// After stepping carefully through each bit, realized that the problem was that I should have enclosed the function chain in parentheses.
+// Sorted
 
 // 7. Must have at least 2 capital letters.  Another job for regex.
 // pun.match(/[A-Z]/g).length >= 2
 
 function twoCapitals(arr) {
-  return arr.filter((pun) => pun.match(/[A-Z]/g).length >= 2);
+  return arr.filter(
+    (pun) => pun.match(/[A-Z]/g) && pun.match(/[A-Z]/g).length >= 2
+  );
 }
 
-let test7 = ["BoB", "BOB", "bob", "Bob"];
+//let test7 = ["BoB", "BOB", "bob", "Bob"];
 
 // would expect "BoB" and "BOB" to pass but this also FAILED
+// the problem is that if there are no matches it returns null, not an empty array.  oops!
+// so I'll just toss an && in there to first check whether said array exists at all.  obviously if it doesn't, then it must be CULLED
+// success!
