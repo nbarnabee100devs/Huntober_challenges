@@ -33,6 +33,8 @@ function decodeString(str) {
   return decodedStr;
 }
 
+// "Space" is the key here, because that was the clue from Day 2
+
 function splitOnKey(str) {
   return str.split(/[Space]+/).join(" ");
 }
@@ -41,12 +43,23 @@ function reverseIt(str) {
   return str.split("").reverse().join("");
 }
 
+function removeEveryNth(str, n) {
+  for (i = n; i < str.length; i += n - 1) {
+    str = str.slice(0, i - 1) + str.slice(i);
+  }
+  return str;
+}
+
 function testIt(str) {
   let first = decodeString(str);
   let second = splitOnKey(first);
   let third = reverseIt(second);
-  console.log(third);
+  // The result from Day 5 was 3
+  let fourth = removeEveryNth(third, 3);
+  console.log(fourth);
 }
 
 // My current result is:
-// sfQmg4ly#viO 1h DjVV^P YWLuDM2. A#1t00!wVdEHD dbv 8tll t)vg1!!
+// sfmglyvi 1 DVVP WLDM. #100wVEH dv tl tvg!!
+
+// Ideally I could go back and contain this all in an object, and split out the "Space" key, which would make this entire thing more generalizable.
