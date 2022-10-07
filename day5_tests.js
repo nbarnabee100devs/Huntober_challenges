@@ -1,12 +1,12 @@
-/* 
-Okayyy things are getting a little stranger now.  I have a string and need to do some things to it...
-*/
+// Today's challenge: I have a string and need to do some things to it...
 
 const testStr =
   "The Pawshank Redemption,Caturday Night Live,Only Meworders in the Building,I Love Mewcy, Mewsummer Meowders,The Golden Purrs, Purrlandia ,Meowpardy, Meowstery Science Theater: Purrthousand, Amewican Idol,Dog City,Doctor Mew , The Meowing Fed,Mew Peter,The Vicar of Dogley, Kittens,Meownton Abbey,Pets and the Kitty,Dogis and Bonehead,Pawlty Meowers ,The Meowpet Show,Barkos,The Catbert Purrport,The Pawffice,The Dogford Files, Battlestar Catlactica,Catlumbo,SpongeDog Squarepants,NYPD Mew ,Fluffy the Meowpire Purrer,The Inbemewners,Meowder She Wrote,Paw & Order,30 Dog, Pawvatar: The Last Meowbender,The Pawnight Show,Arrested Dogvelopment,Furiends,Mewie,Curb Your Dogthusiasm,Teenage Mewtant Ninja Turtles,Phineas and Purrb,Paw Trek, Paw Trek: The Next Mewination, Twin Mewks, *C*A*T*S*,DogTales, Game of Bones, House of the Meowgon,The Purrlight Zone,Breaking Bone,The Meowre,The Dogpranos,The Rings of Meower, The KIT Crowd,Strangepaw Things ,Catman: The Animeowted Series,Meowter Call Saul,Mewgerton ,Obark,Mewphoria,La Casa de Pawpel,Rick & Meowty,Amewican Purror Story, Mewcifer,PawndaVision,Dogxter,The Meowndalorian, Dog Lasso,Bark,Meowdern Pawmily , Meowtlander,Bone Mirror,Barks and Recreation,How to Get Away with Meowder,Boneland ,Meowther Ted,Mewtopia,Mewey,The Mewkie Meowse Doghouse,Mewster Rogers' Neighborhood";
 
 /* 
-I need to determine how many of these entries match a very long list of criteria.  First step will obviously be to split the string on "," and then start filtering. */
+I need to determine how many of these entries match a very long  list of criteria.  First step will obviously be 
+to split the string  on "," and then start filtering. 
+*/
 
 // Decided to write each of these functions in turn and test them.
 
@@ -25,8 +25,10 @@ let test1 = ["A good boy", " A not good boy", "A very bad boy "];
 
 // would expect "A good boy" to pass  PASSED
 
-// 2. Cannot contain "dog," "bark," or "bone" in any combination of upper or lowercase letters.  My first thought was that I'd need to use RegEx, but actually I could do "indexOf."  Oh, no, wait, I can't, because of the whole "upper or lower case letters" thing.
-// pun.match(/dog|bark|bone/gi)  -> this would need to return "null"
+/* 2. Cannot contain "dog," "bark," or "bone" in any combination of upper or lowercase letters.  RegEx is the 
+obvious choice, due to the upper/lowercase letters thing. 
+pun.match(/dog|bark|bone/gi)  -> this would need to return "null"
+*/
 
 function naughtyWordFilter(arr) {
   return arr.filter((pun) => pun.match(/dog|bone|bark/gi) == null);
@@ -67,11 +69,14 @@ function charCodeSumFilter(arr) {
 }
 
 let test4 = ["abc", "aa", "ab"];
-// would expect "ab" to pass, though initially I'd written it wrong because I forgot that it needed to be odd duh.  PASSED
+// would expect "ab" to pass.  PASSED
 
-// 5. Character directly after the middle of the string may not be "e"
-// This is going to refer to pun.charAt(Math.ceil(pun.length/2)) !== "e"
-// for an even lettered string, e.g. "center" she's looking for the letter at index 3, or half the length.  for an odd lettered string, e.g. "weird" she'd also want the letter at index 3, or half the length (2.5) rounded up
+/*
+5. Character directly after the middle of the string may not be "e"
+This is going to refer to pun.charAt(Math.ceil(pun.length/2)) !== "e" for an even lettered string, 
+e.g. "center" she's looking for the letter at index 3, or half the length.  for an odd lettered string, 
+e.g. "weird" she'd also want the letter at index 3, or half the length (2.5) rounded up
+*/
 
 function centerCharFilter(arr) {
   return arr.filter((pun) => pun.charAt(Math.ceil(pun.length / 2)) != "e");
@@ -121,30 +126,28 @@ let test8 = ["sally", "Sally", "dogs", "dogS"];
 
 /* ----  TRY AGAIN ------ */
 
-// 6. Must have an even number of lowercase letters.
+/* 6. Must have an even number of lowercase letters.
+
+Tried just chaining .match and .length to see if it did in fact produce what I wanted.  Succeeded.
+After stepping carefully through each bit, realized that the problem was that I should have enclosed 
+the function chain in parentheses, with the exclamation mark on the outside. Sorted it.
+*/
 
 function lowerEven(arr) {
   return arr.filter((pun) => !(pun.match(/[a-z]/g).length % 2));
 }
 
-//let test6 = ["bob", "jane", "Bob", "Jane"];
+/* 
+7. Must have at least 2 capital letters.  Another job for regex.
+pun.match(/[A-Z]/g).length >= 2
 
-// Tried to see if chaining .match and .length did in fact produce what I wanted, and it did.
-// After stepping carefully through each bit, realized that the problem was that I should have enclosed the function chain in parentheses.
-// Sorted
-
-// 7. Must have at least 2 capital letters.  Another job for regex.
-// pun.match(/[A-Z]/g).length >= 2
+The problem is that if there are no matches it returns null, not an empty array, so the function barfs
+when it's asked to calculate the "length" of null.
+So I'll just toss an && in there to first check whether said array exists at all.  If it doesn't, then it must be CULLED
+*/
 
 function twoCapitals(arr) {
   return arr.filter(
     (pun) => pun.match(/[A-Z]/g) && pun.match(/[A-Z]/g).length >= 2
   );
 }
-
-//let test7 = ["BoB", "BOB", "bob", "Bob"];
-
-// would expect "BoB" and "BOB" to pass but this also FAILED
-// the problem is that if there are no matches it returns null, not an empty array.  oops!
-// so I'll just toss an && in there to first check whether said array exists at all.  obviously if it doesn't, then it must be CULLED
-// success!
