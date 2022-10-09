@@ -50,16 +50,73 @@ function removeEveryNth(str, n) {
   return str;
 }
 
+const letterMap = {
+  a: "z",
+  b: "y",
+  c: "x",
+  d: "w",
+  e: "v",
+  f: "u",
+  g: "t",
+  h: "s",
+  i: "r",
+  j: "q",
+  k: "p",
+  l: "o",
+  m: "n",
+  n: "m",
+  o: "l",
+  p: "k",
+  q: "j",
+  r: "i",
+  s: "h",
+  t: "g",
+  u: "f",
+  v: "e",
+  w: "d",
+  x: "c",
+  y: "b",
+  z: "a",
+};
+
+function oppositeDay(str) {
+  const arr = str.split("");
+  const caseMap = {};
+  arr.forEach((letter, index) => {
+    if (letter === letter.toUpperCase()) caseMap[index] = "upper";
+    else caseMap[index] = "lower";
+  });
+  caseSwap(arr, caseMap);
+}
+
+/* prettier-ignore */
+function caseSwap(arr, cases) {
+  const lowerArr = arr.map((a) => a.toLowerCase());
+  const mixedLetters = lowerArr.map((a) => letterMap[a] ? letterMap[a] : a);
+  const swappedArr = mixedLetters
+    .map((a, i) => {
+      if (cases[i.toString()] === "upper") {
+        return a.toLowerCase()
+      }
+      else return a.toUpperCase()})
+    .join("");
+  console.log(swappedArr);
+}
+
 function testIt(str) {
   let first = decodeString(str);
   let second = splitOnKey(first);
   let third = reverseIt(second);
   // The result from Day 5 was 3
   let fourth = removeEveryNth(third, 3);
-  console.log(fourth);
+  let final = oppositeDay(fourth);
+  console.log(final);
 }
 
-// My current result is:
-// sfmglyvi 1 DVVP WLDM. #100wVEH dv tl tvg!!
+// And the solution is:
+// HUNTOBER 1 week down. #100Devs WE GO GET!!
 
 // Ideally I could go back and contain this all in an object, and split out the "Space" key, which would make this entire thing more generalizable.
+
+// Blaw also suggested we try reverse-engineering the thing, to make a coding ring (effectively.)
+// But I've not got time for that right now.
