@@ -69,4 +69,6 @@ let decoderString = "sfmglyvi 1 DVVP WLDM. #100wVEH dv tl tvg!!";
 /*  But immediately I see the problem:  the functions I've written can't deal with non-letter characters.  didn't even think about that!
 But actually it was an easy fix.
 
+I know I could make this better, but I don't feel like cleaning it up right now.  The solution is: HUNTOBER 1 week down. #100Devs WE GO GET!!
+
 */
