@@ -15,3 +15,4 @@ Day 7: https://blog.barbaralaw.me/huntober-2022-day-7
 ## Week 2: ARRAYS
 
 Day 1: https://blog.barbaralaw.me/huntober-2022-day-8
+Day 2: https://blog.barbaralaw.me/huntober-2022-day-9
