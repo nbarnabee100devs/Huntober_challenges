@@ -18,3 +18,4 @@ Day 1: https://blog.barbaralaw.me/huntober-2022-day-8
 Day 2: https://blog.barbaralaw.me/huntober-2022-day-9  
 Day 3: https://blog.barbaralaw.me/huntober-2022-day-10
 Day 4: https://blog.barbaralaw.me/huntober-2022-day-11
+Day 5: https://blog.barbaralaw.me/huntober-2022-day-12
